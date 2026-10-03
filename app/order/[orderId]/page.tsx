@@ -36,8 +36,7 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-soft text-accent">
           <Check size={28} />
         </span>
-        <p className="eyebrow mt-6">Order confirmed</p>
-        <h1 className="heading-lg mt-3">Thank you</h1>
+        <h1 className="heading-lg mt-6">Thank you</h1>
         <p className="mt-3 text-text/70">
           Placed {formatDate(order.createdAt)}
         </p>
@@ -47,7 +46,7 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
       </div>
 
       <div className="card mt-12 p-7">
-        <p className="eyebrow">Items</p>
+        <h2 className="heading-md">Items</h2>
         <ul className="mt-6 space-y-5">
           {lines.map((line) => (
             <li key={line.productId} className="flex items-center gap-4">
@@ -78,7 +77,7 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
       </div>
 
       <div className="card mt-6 p-7">
-        <p className="eyebrow">Delivering to</p>
+        <h2 className="heading-md">Delivering to</h2>
         <address className="mt-4 text-sm not-italic leading-relaxed text-text/80">
           {order.customer.firstName} {order.customer.lastName}
           <br />

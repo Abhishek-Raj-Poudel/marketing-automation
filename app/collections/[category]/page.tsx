@@ -25,8 +25,7 @@ export default async function CollectionPage(
       <TrackCollectionView category={category} />
 
       <Reveal>
-        <p className="eyebrow">Collection</p>
-        <h1 className="heading-xl mt-4">{category}</h1>
+        <h1 className="heading-xl">{category}</h1>
         <p className="mt-4 max-w-prose text-text/70">
           {list.length} pieces, all made to order in small batches.
         </p>

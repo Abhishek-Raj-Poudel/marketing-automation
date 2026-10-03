@@ -20,7 +20,7 @@ export function Accordion({ items }: { items: { q: string; a: string }[] }) {
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="focus-ring flex w-full items-center justify-between gap-6 py-5 text-left text-[0.9375rem] font-medium text-text"
+                className="focus-ring flex w-full items-center justify-between gap-6 py-5 text-left font-sans text-[0.9375rem] text-text"
               >
                 {item.q}
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-subtle text-text">

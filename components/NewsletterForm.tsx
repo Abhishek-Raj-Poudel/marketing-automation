@@ -103,8 +103,7 @@ export function NewsletterForm({
           />
         </div>
         <form onSubmit={onSubmit} className="p-8">
-          <p className="eyebrow">One note a month</p>
-          <p className="heading-lg mt-3 text-2xl">New stock, once a month.</p>
+          <p className="heading-lg text-2xl">New stock, once a month.</p>
           <p className="mt-3 text-sm text-muted">
             Restock notices and the occasional pattern. Nothing else.
           </p>

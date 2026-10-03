@@ -46,8 +46,7 @@ export default function HomePage() {
       <Section className="pt-14 pb-16 md:pt-20 md:pb-24">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
           <Reveal>
-            <p className="eyebrow">Made in small batches</p>
-            <h1 className="heading-xl mt-5">
+            <h1 className="heading-xl">
               Crocheted goods, one hook at a time.
             </h1>
             <p className="prose-measure mt-6 text-lg text-text/70">
@@ -90,7 +89,6 @@ export default function HomePage() {
       <Section>
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <SectionHead
-            eyebrow="Featured"
             title="This month's batches"
             lede="The pieces that left the studio fastest this month."
           />
@@ -112,7 +110,6 @@ export default function HomePage() {
       <Section tone="subtle">
         <Reveal>
           <SectionHead
-            eyebrow="Why it costs what it costs"
             title="Slow, small, and made to be kept"
           />
         </Reveal>
@@ -128,7 +125,6 @@ export default function HomePage() {
       <Section>
         <Reveal>
           <SectionHead
-            eyebrow="Studio stories"
             title="Where these end up"
             lede="A few pieces, and the people who bought them."
           />
@@ -141,11 +137,7 @@ export default function HomePage() {
       {/* Tile grid */}
       <Section tone="subtle">
         <Reveal>
-          <SectionHead
-            eyebrow="Shop by category"
-            title="Six things we make"
-            align="center"
-          />
+          <SectionHead title="Six things we make" align="center" />
         </Reveal>
         <div className="mt-12">
           <TileGrid />
@@ -155,8 +147,7 @@ export default function HomePage() {
       {/* Newsletter */}
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow">Newsletter</p>
-          <h2 className="heading-lg mt-3">Tell us when the next batch lands</h2>
+          <h2 className="heading-lg">Tell us when the next batch lands</h2>
           <p className="mx-auto prose-measure mt-4 text-text/70">
             One email a month, usually a Tuesday, usually about stock.
           </p>
@@ -171,7 +162,6 @@ export default function HomePage() {
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.4fr]">
           <Reveal>
             <SectionHead
-              eyebrow="Questions"
               title="The five we get most"
               lede="Anything else, ask and we will answer properly."
             />

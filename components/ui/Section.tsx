@@ -30,20 +30,17 @@ export function Section({
 }
 
 export function SectionHead({
-  eyebrow,
   title,
   lede,
   align = "left",
 }: {
-  eyebrow?: string;
   title: string;
   lede?: string;
   align?: "left" | "center";
 }) {
   return (
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <h2 className="heading-lg mt-3">{title}</h2>
+      <h2 className="heading-lg">{title}</h2>
       {lede && <p className="prose-measure mt-4 text-text/70">{lede}</p>}
     </div>
   );

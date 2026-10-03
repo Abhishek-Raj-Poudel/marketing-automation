@@ -53,7 +53,7 @@ export function StoryCards() {
             <p className="text-xs font-semibold tracking-[0.08em] text-inverse-text/70 uppercase">
               {s.stat}
             </p>
-            <h3 className="mt-2 text-xl font-semibold tracking-tight text-inverse-text">
+            <h3 className="heading-md mt-2 text-inverse-text">
               {s.title}
             </h3>
             <p className="mt-2 text-sm text-inverse-text/75">{s.body}</p>

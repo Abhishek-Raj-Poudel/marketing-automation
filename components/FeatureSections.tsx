@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 
 const sections = [
   {
-    eyebrow: "Made by hand",
     title: "Every piece is one person, one afternoon",
     body: "A bag takes about four hours. That is why batches are small and sell through — we would rather make fewer things properly than hold stock of things we rushed.",
     chips: ["Totes", "Pouches", "Straps"],
@@ -14,7 +13,6 @@ const sections = [
     flip: false,
   },
   {
-    eyebrow: "Gifts that last",
     title: "Flowers that need no water and no bin",
     body: "Dried crochet stems hold their shape for years. A birthday present that cannot be forgotten in a fortnight, and cannot be killed by an overenthusiastic recipient.",
     chips: ["Bouquets", "Single stems", "Pots"],
@@ -24,7 +22,6 @@ const sections = [
     flip: true,
   },
   {
-    eyebrow: "Small things",
     title: "Keychains, and other reasons to buy a second one",
     body: "Three for the price of two is our standing offer. They are the cheapest thing we make and the first thing anyone notices.",
     chips: ["Keychains", "Sets of three", "Under 20"],
@@ -56,8 +53,7 @@ export function FeatureSections() {
           </div>
 
           <div className={s.flip ? "md:order-1" : ""}>
-            <p className="eyebrow">{s.eyebrow}</p>
-            <h2 className="heading-lg mt-3">{s.title}</h2>
+            <h2 className="heading-lg">{s.title}</h2>
             <p className="prose-measure mt-4 text-text/70">{s.body}</p>
 
             <ul className="mt-6 flex flex-wrap gap-2">

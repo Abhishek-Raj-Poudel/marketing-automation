@@ -28,6 +28,9 @@
 
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Display face for h1–h6. Unused today beyond the base rule below; kept as
+     a token so a heading can opt back out with `font-sans`. */
+  --font-display: var(--font-bebas);
 
   --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -55,6 +58,19 @@ body {
 }
 
 /* Typography */
+/* Layered, not unlayered, so a `font-sans` utility on a heading still wins.
+   No text-transform: uppercase — Bebas Neue maps lowercase to capitals itself. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}
+
 @utility eyebrow {
   font-size: 0.8125rem;
   line-height: 1.2;
@@ -67,22 +83,22 @@ body {
 @utility heading-xl {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   line-height: 1.05;
-  letter-spacing: -0.03em;
-  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-weight: 400;
 }
 
 @utility heading-lg {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
-  letter-spacing: -0.025em;
-  font-weight: 600;
+  letter-spacing: 0.015em;
+  font-weight: 400;
 }
 
 @utility heading-md {
   font-size: 1.25rem;
   line-height: 1.3;
-  letter-spacing: -0.015em;
-  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-weight: 400;
 }
 
 @utility prose-measure {

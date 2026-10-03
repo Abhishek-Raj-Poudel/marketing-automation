@@ -54,7 +54,7 @@ export default function CartPage() {
               </Link>
 
               <div className="min-w-0 flex-1">
-                <h2 className="font-semibold tracking-tight">
+                <h2>
                   <Link
                     href={`/products/${line.product.slug}`}
                     className="focus-ring rounded-focus outline-offset-4 hover:text-accent"
@@ -89,7 +89,7 @@ export default function CartPage() {
 
         <aside className="lg:sticky lg:top-28 lg:h-fit">
           <div className="card p-7">
-            <p className="eyebrow">Summary</p>
+            <h2 className="heading-md">Summary</h2>
 
             <dl className="mt-6 space-y-3 text-sm">
               <div className="flex justify-between">

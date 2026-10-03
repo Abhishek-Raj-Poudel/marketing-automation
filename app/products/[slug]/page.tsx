@@ -77,7 +77,7 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
 
       {related.length > 0 && (
         <section className="mt-24">
-          <p className="eyebrow">More {product.category.toLowerCase()}</p>
+          <h2 className="heading-md">More {product.category.toLowerCase()}</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p, i) => (
               <Reveal key={p.id} index={i}>

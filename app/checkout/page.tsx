@@ -91,8 +91,7 @@ export default function CheckoutPage() {
 
   return (
     <Section>
-      <p className="eyebrow">Checkout</p>
-      <h1 className="heading-xl mt-4">Almost there</h1>
+      <h1 className="heading-xl">Almost there</h1>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_380px] lg:gap-16">
         <form onSubmit={placeOrder} className="space-y-6">
@@ -165,7 +164,7 @@ export default function CheckoutPage() {
 
         <aside className="lg:sticky lg:top-28 lg:h-fit">
           <div className="card p-7">
-            <p className="eyebrow">Order summary</p>
+            <h2 className="heading-md">Order summary</h2>
             <ul className="mt-6 space-y-5">
               {lines.map((line) => (
                 <li key={line.productId} className="flex items-center gap-4">

@@ -24,12 +24,14 @@ export default async function ShopPage(props: PageProps<"/shop">) {
   return (
     <Section>
       <Reveal>
-        <p className="eyebrow">{found.length} products</p>
-        <h1 className="heading-xl mt-4">Shop</h1>
-        {term && (
+        <h1 className="heading-xl">Shop</h1>
+        {term ? (
           <p className="mt-4 text-text/70">
-            Matching &ldquo;{term}&rdquo;
+            Matching &ldquo;{term}&rdquo; &mdash; {list.length} of {found.length}{" "}
+            products
           </p>
+        ) : (
+          <p className="mt-4 text-text/70">{found.length} products</p>
         )}
       </Reveal>
 

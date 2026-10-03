@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Header } from "@/components/Header";
@@ -10,6 +10,12 @@ import { StoreHydration } from "@/components/StoreHydration";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
+  weight: "400",
+  subsets: ["latin"],
+  fallback: ["Arial Narrow", "system-ui", "sans-serif"],
+});
 
 export const metadata: Metadata = {
   title: "Loom & Knot — crocheted goods, made in small batches",
@@ -21,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bebasNeue.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <StoreHydration />
