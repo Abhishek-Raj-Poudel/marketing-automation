@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import { NewsletterForm } from "@/components/NewsletterForm";
+import { NewsletterForm } from "@/components/NewsletterForm";
 import { categories, slugify } from "@/data/products";
 
 const columns = [
@@ -47,10 +47,7 @@ export function Footer() {
               Crocheted goods made in small batches in a back room in Bristol.
               No moulds, no two pieces identical.
             </p>
-            {/* Klaviyo onsite form — replaces the custom form for now */}
-            <div className="klaviyo-form-RX6nLC" />
-
-            {/* <NewsletterForm variant="footer" /> */}
+            <NewsletterForm variant="footer" />
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
