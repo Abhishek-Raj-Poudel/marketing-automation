@@ -1,15 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
+import { Check } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { useStore } from "@/store/useStore";
 import { identifyCustomer } from "@/lib/tracking";
 
-// One form, two surfaces: the home section and the popup. variant only changes
-// the heading and the width.
+// One form, two surfaces: the home band and the popup. variant only changes
+// the framing.
 export function NewsletterForm({
-  variant = "section",
+  variant = "band",
 }: {
-  variant?: "section" | "popup";
+  variant?: "band" | "popup";
 }) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -23,63 +27,89 @@ export function NewsletterForm({
     setDone(true);
   }
 
+  const emailField = (
+    <Input
+      label="Email"
+      type="email"
+      autoComplete="email"
+      name="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+    />
+  );
+
+  const nameField = (
+    <Input
+      label="First name"
+      autoComplete="given-name"
+      name="firstName"
+      value={firstName}
+      onChange={(e) => setFirstName(e.target.value)}
+    />
+  );
+
+  const submit = (
+    <Button type="submit" size="lg" className="w-full sm:w-auto">
+      Subscribe
+    </Button>
+  );
+
   if (done || customer?.email) {
     return (
-      <div className="card p-8">
-        <p className="display-serif text-xl text-ink">You are on the list.</p>
-        <p className="mt-3 text-sm text-muted">
-          We will write to{" "}
-          <span className="font-mono text-body">{customer?.email ?? email}</span>.
+      <div className="card flex flex-col items-start gap-3 p-8">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft text-accent">
+          <Check size={20} />
+        </span>
+        <p className="text-lg font-semibold tracking-tight">You are on the list</p>
+        <p className="text-sm text-muted">
+          Restock notices go to{" "}
+          <span className="font-mono text-text">{customer?.email ?? email}</span>.
         </p>
       </div>
     );
   }
 
-  return (
-    <form onSubmit={onSubmit} className="card p-8">
-      <p className="eyebrow">
-        {variant === "popup" ? "One note a month" : "Newsletter"}
-      </p>
-      <h2
-        className={`display-serif mt-3 text-ink ${
-          variant === "popup" ? "text-2xl" : "text-3xl"
-        }`}
-      >
-        {variant === "popup"
-          ? "New stock, once a month."
-          : "Tell us when the next batch lands."}
-      </h2>
-      <p className="mt-3 text-sm text-muted">
-        Restock notices and the occasional pattern. Nothing else.
-      </p>
-
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          <span className="eyebrow">First name</span>
-          <input
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            autoComplete="given-name"
-            className="field mt-2"
+  if (variant === "popup") {
+    return (
+      <div className="grid sm:grid-cols-[1fr_1.1fr]">
+        <div className="relative hidden min-h-[420px] bg-subtle sm:block">
+          <Image
+            src="https://picsum.photos/seed/popup-studio/600/800"
+            alt=""
+            fill
+            sizes="240px"
+            className="object-cover"
           />
-        </label>
-        <label className="block">
-          <span className="eyebrow">Email</span>
-          <input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-            className="field mt-2"
-          />
-        </label>
+        </div>
+        <form onSubmit={onSubmit} className="p-8">
+          <p className="eyebrow">One note a month</p>
+          <p className="heading-lg mt-3 text-2xl">New stock, once a month.</p>
+          <p className="mt-3 text-sm text-muted">
+            Restock notices and the occasional pattern. Nothing else.
+          </p>
+          <div className="mt-6 space-y-4">
+            {nameField}
+            {emailField}
+          </div>
+          <div className="mt-6">{submit}</div>
+        </form>
       </div>
+    );
+  }
 
-      <button type="submit" className="btn-primary btn-primary-hover mt-6 h-11 px-5 text-sm">
-        Subscribe
-      </button>
+  return (
+    <form
+      onSubmit={onSubmit}
+      className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center"
+    >
+      <div className="grid w-full gap-4 sm:grid-cols-[1fr_1.4fr_auto] sm:items-end">
+        {nameField}
+        {emailField}
+        <div className="sm:pb-0.5">{submit}</div>
+      </div>
+      <p className="text-sm text-muted">
+        Restock notices and the occasional pattern. Unsubscribe in one click.
+      </p>
     </form>
   );
 }

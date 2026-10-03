@@ -1,21 +1,16 @@
-import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto max-w-3xl px-5 py-32 text-center">
+    <div className="mx-auto max-w-3xl px-5 py-28 text-center md:px-8">
       <p className="eyebrow">404</p>
-      <h1 className="display-serif mt-3 text-4xl text-ink">
-        We could not find that page
-      </h1>
-      <p className="mt-4 text-body">
-        The link may be old, or the product may have sold out and been retired.
+      <h1 className="heading-lg mt-4">We could not find that page</h1>
+      <p className="mx-auto prose-measure mt-4 text-text/70">
+        The link may be old, or the piece may have sold out and been retired.
       </p>
-      <Link
-        href="/shop"
-        className="btn-primary btn-primary-hover mt-8 inline-flex h-12 items-center px-6 text-sm"
-      >
-        Go to shop
-      </Link>
+      <Button href="/shop" size="lg" className="mt-8">
+        Shop now
+      </Button>
     </div>
   );
 }

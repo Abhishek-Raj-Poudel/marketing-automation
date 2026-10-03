@@ -13,31 +13,26 @@ export const metadata = { title: "Shop — Loom & Knot" };
 
 export default async function ShopPage(props: PageProps<"/shop">) {
   const sp = await props.searchParams;
-  const rawCategory = typeof sp.category === "string" ? sp.category : undefined;
+  const raw = typeof sp.category === "string" ? sp.category : undefined;
   const term = typeof sp.q === "string" ? sp.q : "";
 
-  const category = rawCategory
-    ? getCategoryFromSlug(rawCategory)
-    : undefined;
-
+  const category = raw ? getCategoryFromSlug(raw) : undefined;
   const found = search(term);
-  const list = category
-    ? found.filter((p) => p.category === category)
-    : found;
+  const list = category ? found.filter((p) => p.category === category) : found;
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
+    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
       <Reveal>
         <p className="eyebrow">{found.length} products</p>
-        <h1 className="display-serif mt-3 text-4xl text-ink">Shop</h1>
+        <h1 className="heading-xl mt-4">Shop</h1>
         {term && (
-          <p className="mt-3 text-sm text-muted">
+          <p className="mt-4 text-text/70">
             Matching &ldquo;{term}&rdquo;
           </p>
         )}
       </Reveal>
 
-      <nav className="mt-8 flex flex-wrap gap-2 border-b border-line pb-6">
+      <nav className="mt-10 flex flex-wrap gap-2 border-b border-line pb-6">
         <Tab href={term ? `/shop?q=${encodeURIComponent(term)}` : "/shop"} active={!category}>
           All
         </Tab>
@@ -57,14 +52,17 @@ export default async function ShopPage(props: PageProps<"/shop">) {
       {category && <TrackCollectionView category={category} />}
 
       {list.length === 0 ? (
-        <div className="py-24 text-center">
-          <p className="text-body">Nothing matches that.</p>
-          <Link href="/shop" className="mt-3 inline-block text-sm text-muted underline">
+        <div className="py-28 text-center">
+          <p className="text-lg text-text">Nothing matches that.</p>
+          <Link
+            href="/shop"
+            className="focus-ring mt-3 inline-block rounded-focus text-muted underline underline-offset-4 hover:text-text"
+          >
             See everything
           </Link>
         </div>
       ) : (
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((p, i) => (
             <Reveal key={p.id} index={i % 4}>
               <ProductCard product={p} />
@@ -91,8 +89,8 @@ function Tab({
       aria-current={active ? "page" : undefined}
       className={
         active
-          ? "tag bg-ink text-surface"
-          : "tag border border-line text-muted hover:text-ink"
+          ? "badge focus-ring bg-text text-inverse-text"
+          : "badge focus-ring border border-line text-muted hover:border-text hover:text-text"
       }
     >
       {children}

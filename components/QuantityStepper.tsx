@@ -1,5 +1,7 @@
 "use client";
 
+import { Minus, Plus } from "lucide-react";
+
 export function QuantityStepper({
   value,
   onChange,
@@ -8,23 +10,23 @@ export function QuantityStepper({
   onChange: (n: number) => void;
 }) {
   return (
-    <div className="inline-flex items-center border border-line rounded-[6px] bg-surface">
+    <div className="inline-flex h-11 items-center rounded-full border border-line bg-bg">
       <button
         type="button"
         aria-label="Decrease quantity"
         onClick={() => onChange(Math.min(99, Math.max(1, value - 1)))}
-        className="h-8 w-8 text-muted hover:text-ink"
+        className="focus-ring flex h-10 w-10 items-center justify-center rounded-full text-text/70 hover:text-text"
       >
-        &minus;
+        <Minus size={15} />
       </button>
-      <span className="w-9 text-center font-mono text-sm text-ink">{value}</span>
+      <span className="w-10 text-center font-mono text-sm text-text">{value}</span>
       <button
         type="button"
         aria-label="Increase quantity"
         onClick={() => onChange(Math.min(99, Math.max(1, value + 1)))}
-        className="h-8 w-8 text-muted hover:text-ink"
+        className="focus-ring flex h-10 w-10 items-center justify-center rounded-full text-text/70 hover:text-text"
       >
-        +
+        <Plus size={15} />
       </button>
     </div>
   );

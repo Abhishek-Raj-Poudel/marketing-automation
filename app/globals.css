@@ -1,136 +1,162 @@
 @import "tailwindcss";
 
+/* Single source of truth. Tailwind v4 is configured in CSS, so there is no
+   tailwind.config.js to map these into — @theme *is* the mapping. */
 @theme {
-  --color-ink: #111111;
-  --color-body: #2f3437;
-  --color-muted: #787774;
-  --color-line: #eaeaea;
-  --color-bone: #f7f6f3;
-  --color-surface: #ffffff;
+  --color-bg: #ffffff;
+  --color-subtle: #f6f6f4;
+  --color-inverse: #1c1c1a;
+  --color-text: #1c1c1a;
+  --color-muted: #5c5c57;
+  --color-inverse-text: #ffffff;
+  --color-line: #e4e4df;
+  --color-accent: #2f6f4e;
+  --color-accent-hover: #255a40;
+  --color-accent-soft: #e8f0eb;
+  --color-error: #b3261e;
 
-  --color-red-bg: #fdebec;
-  --color-red-ink: #9f2f2d;
-  --color-blue-bg: #e1f3fe;
-  --color-blue-ink: #1f6c9f;
-  --color-green-bg: #edf3ec;
-  --color-green-ink: #346538;
-  --color-yellow-bg: #fbf3db;
-  --color-yellow-ink: #956400;
+  --radius-button: 10px;
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-media: 12px;
+  --radius-focus: 6px;
 
-  --font-sans: var(--font-geist-sans), "SF Pro Display", "Helvetica Neue",
-    Switzer, sans-serif;
-  --font-serif: var(--font-newsreader), "Lyon Text", "Playfair Display",
-    "Instrument Serif", serif;
-  --font-mono: var(--font-geist-mono), "SF Mono", "JetBrains Mono", monospace;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-header: 0 1px 2px rgba(0, 0, 0, 0.04);
 
-  --radius-card: 12px;
-  --radius-control: 6px;
+  --container-page: 1200px;
+  --spacing-section: clamp(64px, 10vw, 120px);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   --ease-out-quiet: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
-  background: var(--color-surface);
-  color: var(--color-body);
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-sans);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--color-accent);
+  color: var(--color-inverse-text);
 }
 
+/* Typography */
 @utility eyebrow {
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.2;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: var(--color-accent);
 }
 
-@utility display-serif {
-  font-family: var(--font-serif);
+@utility heading-xl {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
   letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+@utility heading-lg {
+  font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
 }
 
-@utility btn-primary {
-  background: var(--color-ink);
-  color: var(--color-surface);
-  border-radius: var(--radius-control);
-  transition: background-color 200ms var(--ease-out-quiet),
-    transform 200ms var(--ease-out-quiet);
+@utility heading-md {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-weight: 600;
 }
 
-@utility btn-primary-hover {
-  &:hover {
-    background: #333333;
-  }
-  &:active {
-    transform: scale(0.98);
-  }
+@utility prose-measure {
+  max-width: 60ch;
 }
 
+/* Surfaces */
 @utility card {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
-  background: var(--color-surface);
-  transition: box-shadow 200ms var(--ease-out-quiet);
+  background: var(--color-bg);
 }
 
-@utility card-hover {
+@utility card-lift {
+  transition: transform 200ms var(--ease-out-quiet),
+    box-shadow 200ms var(--ease-out-quiet);
   &:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
   }
 }
 
-@utility tag {
-  display: inline-block;
-  border-radius: 9999px;
-  padding: 3px 10px;
-  font-size: 11px;
+/* Buttons live in components/ui/Button.tsx. This is the base surface only. */
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 180ms ease, color 180ms ease,
+    border-color 180ms ease, transform 150ms ease, box-shadow 180ms ease;
+}
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@utility input-base {
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-input);
+  background: var(--color-bg);
+  padding: 0 14px;
+  /* 16px prevents iOS zoom-on-focus */
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  &:focus {
+    outline: none;
+    border-color: var(--color-text);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
+  }
+  &::placeholder {
+    color: var(--color-muted);
+  }
+}
+
+@utility badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
   line-height: 1.4;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-@utility field {
-  width: 100%;
-  height: 44px;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-control);
-  background: var(--color-surface);
-  padding: 0 12px;
-  font-size: 15px;
-  color: var(--color-ink);
-  transition: border-color 200ms var(--ease-out-quiet);
-}
-
-@utility field-focus {
-  &:focus {
-    outline: none;
-    border-color: var(--color-ink);
-  }
-}
-
-@utility kbd {
-  display: inline-block;
-  border: 1px solid var(--color-line);
-  border-radius: 4px;
-  background: var(--color-bone);
-  padding: 1px 6px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-muted);
-}
-
+/* Scroll entrance. --index staggers a grid without per-item timers. */
 @utility reveal {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 600ms var(--ease-out-quiet),
-    transform 600ms var(--ease-out-quiet);
-  transition-delay: calc(var(--index, 0) * 80ms);
+  transform: translateY(14px);
+  transition: opacity 450ms var(--ease-out-quiet),
+    transform 450ms var(--ease-out-quiet);
+  transition-delay: calc(var(--index, 0) * 70ms);
 }
 
 @utility reveal-in {
@@ -139,9 +165,16 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-in {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
   }
 }

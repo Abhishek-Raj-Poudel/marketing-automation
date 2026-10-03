@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { trackAddedToCart } from "@/lib/tracking";
 import { useStore } from "@/store/useStore";
@@ -17,14 +19,12 @@ export function AddToCart({ product }: { product: Product }) {
   }
 
   return (
-    <div className="mt-8 flex flex-wrap items-center gap-4">
+    <div className="mt-9 flex flex-wrap items-center gap-4">
       <QuantityStepper value={quantity} onChange={setQuantity} />
-      <button
-        onClick={add}
-        className="btn-primary btn-primary-hover h-11 px-6 text-sm"
-      >
+      <Button onClick={add} size="lg">
+        <ShoppingBag size={17} />
         Add to cart
-      </button>
+      </Button>
     </div>
   );
 }

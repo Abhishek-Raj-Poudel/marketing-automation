@@ -1,15 +1,28 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { emptyCustomer, linesOf, newOrderId, totalOf, useStore } from "@/store/useStore";
-import { identifyCustomer, trackPlacedOrder, trackStartedCheckout } from "@/lib/tracking";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Input, Select } from "@/components/ui/Input";
+import {
+  emptyCustomer,
+  linesOf,
+  newOrderId,
+  totalOf,
+  useStore,
+} from "@/store/useStore";
+import {
+  identifyCustomer,
+  trackPlacedOrder,
+  trackStartedCheckout,
+} from "@/lib/tracking";
 import { formatPrice } from "@/lib/utils";
 
 const COUNTRIES = [
-  "United States",
   "United Kingdom",
+  "United States",
   "Canada",
   "Ireland",
   "Australia",
@@ -28,21 +41,17 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (fired.current) return;
     fired.current = true;
-    trackStartedCheckout(useStore.getState().items, useStore.getState().customer);
+    const s = useStore.getState();
+    trackStartedCheckout(s.items, s.customer);
   }, []);
 
   if (lines.length === 0) {
     return (
-      <div className="mx-auto max-w-6xl px-5 py-32 text-center">
-        <h1 className="display-serif text-3xl text-ink">
-          There is nothing to check out
-        </h1>
-        <Link
-          href="/shop"
-          className="mt-6 inline-flex h-11 items-center border border-line px-5 text-sm text-ink hover:border-ink"
-        >
-          Go to shop
-        </Link>
+      <div className="mx-auto max-w-page px-5 py-28 text-center md:px-8">
+        <h1 className="heading-lg">There is nothing to check out</h1>
+        <Button href="/shop" size="lg" className="mt-8">
+          Shop now
+        </Button>
       </div>
     );
   }
@@ -50,30 +59,28 @@ export default function CheckoutPage() {
   function placeOrder(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const value = (k: string) => String(form.get(k) ?? "").trim();
+    const v = (k: string) => String(form.get(k) ?? "").trim();
 
     const customer = {
       ...emptyCustomer(),
-      email: value("email"),
-      firstName: value("firstName"),
-      lastName: value("lastName"),
-      address: value("address"),
+      email: v("email"),
+      firstName: v("firstName"),
+      lastName: v("lastName"),
+      address: v("address"),
     };
-    const city = value("city");
-    const postalCode = value("postalCode");
-    const country = value("country");
+    const shipping = `${v("address")}, ${v("city")}, ${v("postalCode")}, ${v("country")}`;
 
     const order = {
       id: newOrderId(),
       items: useStore.getState().items,
       total,
-      customer: { ...customer, address: `${customer.address}, ${city}, ${postalCode}, ${country}` },
+      customer: { ...customer, address: shipping },
       createdAt: new Date().toISOString(),
     };
 
     const store = useStore.getState();
     store.setCustomer(customer);
-    identifyCustomer({ ...customer, address: order.customer.address });
+    identifyCustomer(order.customer);
     store.placeOrder(order);
     trackPlacedOrder(order);
     store.clear();
@@ -82,83 +89,113 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
-      <h1 className="display-serif text-4xl text-ink">Checkout</h1>
+    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+      <p className="eyebrow">Checkout</p>
+      <h1 className="heading-xl mt-4">Almost there</h1>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_360px]">
-        <form onSubmit={placeOrder}>
-          <p className="eyebrow">Contact</p>
-          <Field name="email" label="Email" type="email" autoComplete="email" defaultValue={saved?.email} className="mt-4" />
+      <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_380px] lg:gap-16">
+        <form onSubmit={placeOrder} className="space-y-6">
+          <fieldset className="card p-7">
+            <legend className="px-2 text-sm font-semibold tracking-tight">
+              Contact
+            </legend>
+            <Input
+              label="Email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              defaultValue={saved?.email}
+              className="mt-4"
+            />
+          </fieldset>
 
-          <p className="eyebrow mt-10">Shipping</p>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <Field name="firstName" label="First name" autoComplete="given-name" defaultValue={saved?.firstName} />
-            <Field name="lastName" label="Last name" autoComplete="family-name" defaultValue={saved?.lastName} />
-          </div>
-          <Field name="address" label="Address" autoComplete="street-address" className="mt-4" />
-
-          <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            <Field name="city" label="City" autoComplete="address-level2" />
-            <Field name="postalCode" label="Postal code" autoComplete="postal-code" />
-            <label className="block">
-              <span className="eyebrow">Country</span>
-              <select name="country" required autoComplete="country-name" className="field field-focus mt-2">
+          <fieldset className="card p-7">
+            <legend className="px-2 text-sm font-semibold tracking-tight">
+              Shipping
+            </legend>
+            <div className="mt-4 grid gap-5 sm:grid-cols-2">
+              <Input
+                label="First name"
+                name="firstName"
+                autoComplete="given-name"
+                defaultValue={saved?.firstName}
+              />
+              <Input
+                label="Last name"
+                name="lastName"
+                autoComplete="family-name"
+                defaultValue={saved?.lastName}
+              />
+              <Input
+                label="Address"
+                name="address"
+                autoComplete="street-address"
+                className="sm:col-span-2"
+              />
+              <Input label="City" name="city" autoComplete="address-level2" />
+              <Input
+                label="Postal code"
+                name="postalCode"
+                autoComplete="postal-code"
+              />
+              <Select
+                label="Country"
+                name="country"
+                autoComplete="country-name"
+                className="sm:col-span-2"
+              >
                 {COUNTRIES.map((c) => (
                   <option key={c}>{c}</option>
                 ))}
-              </select>
-            </label>
-          </div>
+              </Select>
+            </div>
+          </fieldset>
 
-          <button type="submit" className="btn-primary btn-primary-hover mt-10 h-12 px-6 text-sm">
-            Place order
-          </button>
-          <p className="mt-3 text-xs text-muted">
-            No payment is taken. This creates a mock order in your browser.
-          </p>
+          <div>
+            <Button type="submit" size="lg">
+              Place order
+              <ArrowRight size={17} />
+            </Button>
+            <p className="mt-3 text-sm text-muted">
+              No payment is taken. This creates a mock order in your browser.
+            </p>
+          </div>
         </form>
 
-        <aside className="lg:sticky lg:top-24 lg:h-fit">
-          <div className="card p-8">
+        <aside className="lg:sticky lg:top-28 lg:h-fit">
+          <div className="card p-7">
             <p className="eyebrow">Order summary</p>
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-6 space-y-5">
               {lines.map((line) => (
-                <li key={line.productId} className="flex items-center gap-3">
-                  <span className="h-12 w-12 shrink-0 overflow-hidden rounded-[6px] bg-bone">
-                    <img src={line.product.image} alt={line.product.name} className="h-full w-full object-cover opacity-90" />
+                <li key={line.productId} className="flex items-center gap-4">
+                  <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-media bg-subtle">
+                    <Image
+                      src={line.product.image}
+                      alt=""
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-body">
+                  <span className="min-w-0 flex-1 truncate text-sm text-text">
                     {line.product.name}
                     <span className="ml-2 font-mono text-xs text-muted">
                       {line.quantity}&times;
                     </span>
                   </span>
-                  <span className="font-mono text-sm text-body">
+                  <span className="font-mono text-sm">
                     {formatPrice(line.lineTotal)}
                   </span>
                 </li>
               ))}
             </ul>
             <div className="mt-6 flex justify-between border-t border-line pt-4">
-              <span className="text-ink">Subtotal</span>
-              <span className="font-mono text-ink">{formatPrice(total)}</span>
+              <span className="font-semibold tracking-tight">Total</span>
+              <span className="font-mono font-semibold">{formatPrice(total)}</span>
             </div>
           </div>
         </aside>
       </div>
     </div>
-  );
-}
-
-function Field({
-  label,
-  className = "",
-  ...props
-}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <label className={`block ${className}`}>
-      <span className="eyebrow">{label}</span>
-      <input required {...props} className="field field-focus mt-2" />
-    </label>
   );
 }

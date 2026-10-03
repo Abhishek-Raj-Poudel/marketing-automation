@@ -20,15 +20,18 @@ export default async function CollectionPage(
   const list = getByCategory(category);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
+    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
       <TrackCollectionView category={category} />
 
       <Reveal>
         <p className="eyebrow">Collection</p>
-        <h1 className="display-serif mt-3 text-4xl text-ink">{category}</h1>
+        <h1 className="heading-xl mt-4">{category}</h1>
+        <p className="mt-4 max-w-prose text-text/70">
+          {list.length} pieces, all made to order in small batches.
+        </p>
       </Reveal>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {list.map((p, i) => (
           <Reveal key={p.id} index={i % 4}>
             <ProductCard product={p} />

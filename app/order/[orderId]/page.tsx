@@ -1,7 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { use } from "react";
+import { Check } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { linesOf, useStore } from "@/store/useStore";
 import { formatDate, formatPrice } from "@/lib/utils";
 
@@ -11,18 +13,15 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
 
   if (!order) {
     return (
-      <div className="mx-auto max-w-6xl px-5 py-32 text-center">
-        <h1 className="display-serif text-3xl text-ink">Order not found</h1>
-        <p className="mt-3 text-sm text-muted">
+      <div className="mx-auto max-w-page px-5 py-28 text-center md:px-8">
+        <h1 className="heading-lg">Order not found</h1>
+        <p className="mx-auto prose-measure mt-4 text-text/70">
           Orders are stored in this browser only, so a link opened on another
           device will not resolve.
         </p>
-        <Link
-          href="/shop"
-          className="mt-6 inline-flex h-11 items-center border border-line px-5 text-sm text-ink hover:border-ink"
-        >
-          Go to shop
-        </Link>
+        <Button href="/shop" size="lg" className="mt-8">
+          Shop now
+        </Button>
       </div>
     );
   }
@@ -30,47 +29,55 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
   const lines = linesOf(order.items);
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-16">
-      <p className="eyebrow">Order confirmed</p>
-      <h1 className="mt-3 font-mono text-3xl text-ink">{order.id}</h1>
-      <p className="mt-2 text-sm text-muted">
-        Placed {formatDate(order.createdAt)}
-      </p>
+    <div className="mx-auto max-w-3xl px-5 py-14 md:px-8 md:py-20">
+      <div className="text-center">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-soft text-accent">
+          <Check size={28} />
+        </span>
+        <p className="eyebrow mt-6">Order confirmed</p>
+        <h1 className="heading-lg mt-3">Thank you</h1>
+        <p className="mt-3 text-text/70">
+          Placed {formatDate(order.createdAt)}
+        </p>
+        <p className="mt-6 inline-block rounded-full bg-subtle px-5 py-2 font-mono text-sm tracking-tight">
+          {order.id}
+        </p>
+      </div>
 
-      <div className="card mt-10 p-8">
+      <div className="card mt-12 p-7">
         <p className="eyebrow">Items</p>
-        <ul className="mt-4 space-y-4">
+        <ul className="mt-6 space-y-5">
           {lines.map((line) => (
             <li key={line.productId} className="flex items-center gap-4">
-              <span className="h-14 w-14 shrink-0 overflow-hidden rounded-[6px] bg-bone">
-                <img
+              <span className="relative h-16 w-16 shrink-0 overflow-hidden rounded-media bg-subtle">
+                <Image
                   src={line.product.image}
-                  alt={line.product.name}
-                  className="h-full w-full object-cover opacity-90"
+                  alt=""
+                  fill
+                  sizes="64px"
+                  className="object-cover"
                 />
               </span>
-              <span className="min-w-0 flex-1 truncate text-sm text-body">
+              <span className="min-w-0 flex-1 truncate text-sm">
                 {line.product.name}
                 <span className="ml-2 font-mono text-xs text-muted">
                   {line.quantity}&times;
                 </span>
               </span>
-              <span className="font-mono text-sm text-body">
-                {formatPrice(line.lineTotal)}
-              </span>
+              <span className="font-mono text-sm">{formatPrice(line.lineTotal)}</span>
             </li>
           ))}
         </ul>
 
         <div className="mt-6 flex justify-between border-t border-line pt-4">
-          <span className="text-ink">Subtotal</span>
-          <span className="font-mono text-ink">{formatPrice(order.total)}</span>
+          <span className="font-semibold tracking-tight">Total</span>
+          <span className="font-mono font-semibold">{formatPrice(order.total)}</span>
         </div>
       </div>
 
-      <div className="card mt-5 p-8">
+      <div className="card mt-6 p-7">
         <p className="eyebrow">Delivering to</p>
-        <address className="mt-4 text-sm not-italic leading-relaxed text-body">
+        <address className="mt-4 text-sm not-italic leading-relaxed text-text/80">
           {order.customer.firstName} {order.customer.lastName}
           <br />
           {order.customer.email}
@@ -79,9 +86,14 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
         </address>
       </div>
 
-      <p className="mt-8 text-xs text-muted">
-        Demo order. Nothing was charged and nothing will be shipped.
-      </p>
+      <div className="mt-8 text-center">
+        <Button href="/shop" variant="secondary" size="lg">
+          Continue shopping
+        </Button>
+        <p className="mt-6 text-sm text-muted">
+          Demo order. Nothing was charged and nothing will be shipped.
+        </p>
+      </div>
     </div>
   );
 }

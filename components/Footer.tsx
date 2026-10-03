@@ -1,56 +1,94 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { categories, slugify } from "@/data/products";
 
 const columns = [
   {
     title: "Shop",
     links: [
       { label: "All products", href: "/shop" },
-      { label: "Bags", href: "/collections/bags" },
-      { label: "Flowers", href: "/collections/flowers" },
-      { label: "Amigurumi", href: "/collections/amigurumi" },
+      ...categories.map((c) => ({ label: c, href: `/collections/${slugify(c)}` })),
+    ],
+  },
+  {
+    title: "Collections",
+    links: [
+      { label: "New batches", href: "/shop" },
+      { label: "Under 30", href: "/shop?q=" },
+      { label: "Custom commissions", href: "/collections/custom" },
     ],
   },
   {
     title: "Help",
     links: [
-      { label: "Custom orders", href: "/collections/custom" },
-      { label: "Cart", href: "/cart" },
       { label: "Shipping", href: "/shop" },
+      { label: "Returns", href: "/shop" },
+      { label: "Care", href: "/shop" },
+    ],
+  },
+  {
+    title: "Studio",
+    links: [
+      { label: "Your cart", href: "/cart" },
+      { label: "Past orders", href: "/order/MA-DEMO" },
+      { label: "Stockists", href: "/shop" },
     ],
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-line bg-bone">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:grid-cols-3">
-        <div>
-          <p className="display-serif text-lg text-ink">Loom &amp; Knot</p>
-          <p className="mt-3 max-w-xs text-sm text-muted">
-            Crocheted goods made in small batches. Everything here was made by
-            hand, which is why the stitch count varies a little.
-          </p>
+    <footer className="bg-inverse text-inverse-text">
+      <div className="mx-auto max-w-page px-5 py-20 md:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
+          <div>
+            <p className="text-lg font-semibold tracking-tight">Loom &amp; Knot</p>
+            <p className="mt-4 max-w-sm text-sm text-inverse-text/70">
+              Crocheted goods made in small batches in a back room in Bristol.
+              No moulds, no two pieces identical.
+            </p>
+            <Link
+              href="/shop"
+              className="focus-ring mt-6 inline-flex items-center gap-1.5 rounded-focus text-sm font-medium underline-offset-4 hover:underline"
+            >
+              Shop the new batches
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {columns.map((col) => (
+              <div key={col.title}>
+                <p className="text-xs font-semibold tracking-[0.08em] text-inverse-text/50 uppercase">
+                  {col.title}
+                </p>
+                <ul className="mt-4 space-y-2.5 text-sm">
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <Link
+                        href={l.href}
+                        className="focus-ring rounded-focus text-inverse-text/75 hover:text-inverse-text"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {columns.map((col) => (
-          <div key={col.title}>
-            <p className="eyebrow">{col.title}</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              {col.links.map((l) => (
-                <li key={l.label}>
-                  <Link href={l.href} className="text-body hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="border-t border-line">
-        <div className="mx-auto max-w-6xl px-5 py-6 text-xs text-muted">
-          Demo storefront. No orders are fulfilled and no payment is taken.
+        <div className="mt-16 flex flex-col gap-4 border-t border-inverse-text/15 pt-8 text-sm text-inverse-text/50 sm:flex-row sm:items-center sm:justify-between">
+          <p>Demo storefront. No payment is taken and nothing is shipped.</p>
+          <p className="flex gap-5">
+            <Link href="/shop" className="hover:text-inverse-text">
+              Privacy
+            </Link>
+            <Link href="/shop" className="hover:text-inverse-text">
+              Terms
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
@@ -21,42 +22,62 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
   const related = getRelated(product);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
+    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
       <TrackProductView product={product} />
 
-      <div className="grid gap-12 lg:grid-cols-2">
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <div className="card overflow-hidden">
-            <img
+          <div className="relative aspect-[4/5] overflow-hidden rounded-card bg-subtle">
+            <Image
               src={product.image}
               alt={product.name}
-              className="aspect-[4/3] w-full object-cover opacity-90"
+              fill
+              priority
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
             />
           </div>
         </Reveal>
 
         <Reveal index={1}>
-          <Link
-            href={`/collections/${slugify(product.category)}`}
-            className="tag bg-blue-bg text-blue-ink hover:opacity-80"
-          >
-            {product.category}
-          </Link>
-          <h1 className="display-serif mt-5 text-[clamp(1.75rem,3vw,2.5rem)] text-ink">
-            {product.name}
-          </h1>
-          <p className="mt-3 font-mono text-lg text-body">
-            {formatPrice(product.price)}
-          </p>
-          <p className="mt-6 max-w-prose text-body">{product.description}</p>
-          <AddToCart product={product} />
+          <div className="lg:sticky lg:top-28">
+            <Link
+              href={`/collections/${slugify(product.category)}`}
+              className="badge focus-ring bg-accent-soft text-accent hover:opacity-80"
+            >
+              {product.category}
+            </Link>
+
+            <h1 className="heading-lg mt-5">{product.name}</h1>
+
+            <p className="mt-4 font-mono text-lg text-text">
+              {formatPrice(product.price)}
+            </p>
+
+            <p className="prose-measure mt-6 text-text/70">{product.description}</p>
+
+            <AddToCart product={product} />
+
+            <dl className="mt-10 space-y-3 border-t border-line pt-6 text-sm">
+              {[
+                ["Made in", "Bristol, in batches of twenty"],
+                ["Materials", "Cotton, canvas, tapestry yarn"],
+                ["Dispatch", "Within 48 hours"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between gap-6">
+                  <dt className="text-muted">{k}</dt>
+                  <dd className="text-right font-medium text-text">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </Reveal>
       </div>
 
       {related.length > 0 && (
         <section className="mt-24">
           <p className="eyebrow">More {product.category.toLowerCase()}</p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p, i) => (
               <Reveal key={p.id} index={i}>
                 <ProductCard product={p} />
