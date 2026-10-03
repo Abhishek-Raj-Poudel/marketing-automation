@@ -39,7 +39,7 @@ const columns = [
 export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-text">
-      <div className="mx-auto max-w-page px-5 py-section md:px-8">
+      <div className="container py-section">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <p className="text-lg font-semibold tracking-tight">Loom &amp; Knot</p>

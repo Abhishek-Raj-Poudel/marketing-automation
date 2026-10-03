@@ -26,7 +26,7 @@ export function AnnouncementBar() {
       className="overflow-hidden bg-inverse text-inverse-text transition-[height] duration-300"
       style={{ height: visible ? 40 : 0 }}
     >
-      <div className="relative mx-auto flex h-10 max-w-page items-center justify-center gap-3 px-5 text-sm">
+      <div className="container relative flex h-10 items-center justify-center gap-3 text-sm">
         <p className="hidden sm:block">Free UK shipping over 40</p>
         <span aria-hidden className="hidden h-3 w-px bg-inverse-text/30 sm:block" />
         <a

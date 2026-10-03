@@ -14,7 +14,7 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
 
   if (!order) {
     return (
-      <div className="mx-auto max-w-page px-5 py-28 text-center md:px-8">
+      <div className="container py-28 text-center">
         <h1 className="heading-lg">Order not found</h1>
         <p className="mx-auto prose-measure mt-4 text-text/70">
           Orders are stored in this browser only, so a link opened on another

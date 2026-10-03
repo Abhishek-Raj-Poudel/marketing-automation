@@ -16,7 +16,7 @@ export default function CartPage() {
 
   if (lines.length === 0) {
     return (
-      <div className="mx-auto max-w-page px-5 py-28 text-center md:px-8">
+      <div className="container py-28 text-center">
         <h1 className="heading-lg">Your cart is empty</h1>
         <p className="mx-auto prose-measure mt-4 text-text/70">
           Nothing in here yet. The new batches go up on the first of the month.

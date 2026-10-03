@@ -24,7 +24,7 @@ export function Section({
 
   return (
     <Tag id={id} className={`${tones[tone]} py-section ${className}`}>
-      <div className="mx-auto w-full max-w-page px-5 md:px-8">{children}</div>
+      <div className="container">{children}</div>
     </Tag>
   );
 }

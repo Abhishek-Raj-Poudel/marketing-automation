@@ -48,7 +48,7 @@ export default function CheckoutPage() {
 
   if (lines.length === 0) {
     return (
-      <div className="mx-auto max-w-page px-5 py-28 text-center md:px-8">
+      <div className="container py-28 text-center">
         <h1 className="heading-lg">There is nothing to check out</h1>
         <Button href="/shop" size="lg" className="mt-8">
           Shop now

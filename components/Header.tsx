@@ -30,7 +30,7 @@ export function Header() {
         scrolled ? "border-b border-line shadow-header" : ""
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-page items-center gap-6 px-5 md:px-8">
+      <div className="container flex h-16 items-center gap-6">
         <Link href="/" className="focus-ring rounded-focus text-lg font-semibold tracking-tight text-text">
           Loom &amp; Knot
         </Link>
