@@ -33,14 +33,14 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
     <Section>
       <div className="mx-auto max-w-3xl">
       <div className="text-center">
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-soft text-accent">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-focus bg-accent-soft text-accent">
           <Check size={28} />
         </span>
         <h1 className="heading-lg mt-6">Thank you</h1>
         <p className="mt-3 text-text/70">
           Placed {formatDate(order.createdAt)}
         </p>
-        <p className="mt-6 inline-block rounded-full bg-subtle px-5 py-2 font-mono text-sm tracking-tight">
+        <p className="mt-6 inline-block rounded-focus bg-subtle px-5 py-2 font-mono text-sm tracking-tight">
           {order.id}
         </p>
       </div>

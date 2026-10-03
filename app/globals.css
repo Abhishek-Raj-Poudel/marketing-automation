@@ -15,11 +15,16 @@
   --color-accent-soft: #e8f0eb;
   --color-error: #b3261e;
 
-  --radius-button: 10px;
-  --radius-card: 16px;
-  --radius-input: 10px;
-  --radius-media: 12px;
-  --radius-focus: 6px;
+  /* Square edges throughout. Kept as tokens (not deleted) so the
+     rounded-* utilities and the @utility rules below stay token-driven. */
+  --radius-button: 0px;
+  --radius-card: 0px;
+  --radius-input: 0px;
+  --radius-media: 0px;
+  --radius-focus: 0px;
+  /* Tailwind's own default is 0.25rem; overridden so bare `rounded` and
+     `rounded-sm` cannot reintroduce a curve. */
+  --radius: 0px;
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
   --shadow-header: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -165,7 +170,7 @@ body {
 @utility badge {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--radius-button);
   padding: 4px 12px;
   font-size: 0.75rem;
   line-height: 1.4;
