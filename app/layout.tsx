@@ -6,7 +6,7 @@ import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StoreHydration } from "@/components/StoreHydration";
-import { NewsletterPopup } from "@/components/NewsletterPopup";
+// import { NewsletterPopup } from "@/components/NewsletterPopup";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <NewsletterPopup />
+        {/* <NewsletterPopup /> */}
 
         <Script
           id="klaviyo-init"
