@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "tertiary";
+type Variant = "primary" | "secondary" | "tertiary" | "light";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
@@ -11,6 +11,8 @@ const variants: Record<Variant, string> = {
     "bg-transparent text-text border border-line hover:border-text hover:bg-subtle",
   tertiary:
     "bg-transparent text-text border border-transparent hover:underline underline-offset-4 px-0",
+  light:
+    "bg-inverse-text text-text hover:bg-subtle border border-transparent",
 };
 
 const sizes: Record<Size, string> = {

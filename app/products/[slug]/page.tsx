@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Section } from "@/components/ui/Section";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/AddToCart";
@@ -22,7 +23,7 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
   const related = getRelated(product);
 
   return (
-    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+    <Section>
       <TrackProductView product={product} />
 
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -86,6 +87,6 @@ export default async function ProductPage(props: PageProps<"/products/[slug]">) 
           </div>
         </section>
       )}
-    </div>
+    </Section>
   );
 }

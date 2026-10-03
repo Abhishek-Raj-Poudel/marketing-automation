@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { NewsletterForm } from "@/components/NewsletterForm";
 import { categories, slugify } from "@/data/products";
 
 const columns = [
@@ -39,7 +39,7 @@ const columns = [
 export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-text">
-      <div className="mx-auto max-w-page px-5 py-20 md:px-8">
+      <div className="mx-auto max-w-page px-5 py-section md:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <p className="text-lg font-semibold tracking-tight">Loom &amp; Knot</p>
@@ -47,13 +47,7 @@ export function Footer() {
               Crocheted goods made in small batches in a back room in Bristol.
               No moulds, no two pieces identical.
             </p>
-            <Link
-              href="/shop"
-              className="focus-ring mt-6 inline-flex items-center gap-1.5 rounded-focus text-sm font-medium underline-offset-4 hover:underline"
-            >
-              Shop the new batches
-              <ArrowRight size={15} />
-            </Link>
+            <NewsletterForm variant="footer" />
           </div>
 
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">

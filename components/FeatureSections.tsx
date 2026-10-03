@@ -41,7 +41,7 @@ export function FeatureSections() {
       {sections.map((s) => (
         <div
           key={s.href}
-          className="grid items-center gap-10 py-16 md:grid-cols-2 md:gap-16 md:py-24"
+          className="grid items-center gap-10 py-10 md:grid-cols-2 md:gap-16 md:py-14"
         >
           <div className={s.flip ? "md:order-2" : ""}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-card bg-subtle">

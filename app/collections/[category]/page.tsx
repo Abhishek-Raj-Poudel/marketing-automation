@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Section } from "@/components/ui/Section";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { TrackCollectionView } from "@/components/Trackers";
@@ -20,7 +21,7 @@ export default async function CollectionPage(
   const list = getByCategory(category);
 
   return (
-    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+    <Section>
       <TrackCollectionView category={category} />
 
       <Reveal>
@@ -38,6 +39,6 @@ export default async function CollectionPage(
           </Reveal>
         ))}
       </div>
-    </div>
+    </Section>
   );
 }

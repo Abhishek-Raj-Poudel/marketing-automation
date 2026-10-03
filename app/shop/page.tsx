@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Section } from "@/components/ui/Section";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { TrackCollectionView } from "@/components/Trackers";
@@ -21,7 +22,7 @@ export default async function ShopPage(props: PageProps<"/shop">) {
   const list = category ? found.filter((p) => p.category === category) : found;
 
   return (
-    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+    <Section>
       <Reveal>
         <p className="eyebrow">{found.length} products</p>
         <h1 className="heading-xl mt-4">Shop</h1>
@@ -70,7 +71,7 @@ export default async function ShopPage(props: PageProps<"/shop">) {
           ))}
         </div>
       )}
-    </div>
+    </Section>
   );
 }
 

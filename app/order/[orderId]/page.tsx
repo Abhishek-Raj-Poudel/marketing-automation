@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Section } from "@/components/ui/Section";
 import { use } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -29,7 +30,8 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
   const lines = linesOf(order.items);
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-14 md:px-8 md:py-20">
+    <Section>
+      <div className="mx-auto max-w-3xl">
       <div className="text-center">
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-soft text-accent">
           <Check size={28} />
@@ -94,6 +96,7 @@ export default function OrderPage(props: PageProps<"/order/[orderId]">) {
           Demo order. Nothing was charged and nothing will be shipped.
         </p>
       </div>
-    </div>
+      </div>
+    </Section>
   );
 }

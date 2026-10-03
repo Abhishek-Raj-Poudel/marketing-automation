@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Section } from "@/components/ui/Section";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
@@ -89,7 +90,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+    <Section>
       <p className="eyebrow">Checkout</p>
       <h1 className="heading-xl mt-4">Almost there</h1>
 
@@ -196,6 +197,6 @@ export default function CheckoutPage() {
           </div>
         </aside>
       </div>
-    </div>
+    </Section>
   );
 }

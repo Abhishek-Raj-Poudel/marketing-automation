@@ -13,7 +13,7 @@ import { identifyCustomer } from "@/lib/tracking";
 export function NewsletterForm({
   variant = "band",
 }: {
-  variant?: "band" | "popup";
+  variant?: "band" | "popup" | "footer";
 }) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -94,6 +94,34 @@ export function NewsletterForm({
           <div className="mt-6">{submit}</div>
         </form>
       </div>
+    );
+  }
+
+  if (variant === "footer") {
+    return (
+      <form onSubmit={onSubmit} className="mt-6">
+        <p className="text-sm font-semibold tracking-tight text-inverse-text">
+          Get the monthly note
+        </p>
+        <p className="mt-1 text-sm text-inverse-text/60">
+          Restock notices, one email a month.
+        </p>
+        <div className="mt-4 flex items-end gap-2">
+          <Input
+            label="Email"
+            type="email"
+            autoComplete="email"
+            name="email"
+            tone="dark"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="min-w-0 flex-1"
+          />
+          <Button type="submit" variant="light" size="lg" className="shrink-0">
+            Join
+          </Button>
+        </div>
+      </form>
     );
   }
 

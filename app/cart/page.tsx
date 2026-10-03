@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Section } from "@/components/ui/Section";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -29,7 +30,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-page px-5 py-14 md:px-8 md:py-20">
+    <Section>
       <h1 className="heading-xl">Cart</h1>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px] lg:gap-16">
@@ -116,6 +117,6 @@ export default function CartPage() {
           </div>
         </aside>
       </div>
-    </div>
+    </Section>
   );
 }
