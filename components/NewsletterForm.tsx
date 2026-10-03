@@ -18,13 +18,33 @@ export function NewsletterForm({
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [done, setDone] = useState(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const customer = useStore((s) => s.customer);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    useStore.getState().setCustomer({ email, firstName });
-    identifyCustomer(useStore.getState().customer!);
-    setDone(true);
+    setPending(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, firstName }),
+      });
+      const json = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        setError(json.error ?? "Could not subscribe. Try again.");
+        return;
+      }
+      useStore.getState().setCustomer({ email, firstName });
+      identifyCustomer(useStore.getState().customer!);
+      setDone(true);
+    } catch {
+      setError("Network error. Check your connection and retry.");
+    } finally {
+      setPending(false);
+    }
   }
 
   const emailField = (
@@ -35,6 +55,7 @@ export function NewsletterForm({
       name="email"
       value={email}
       onChange={(e) => setEmail(e.target.value)}
+      error={error ?? undefined}
     />
   );
 
@@ -49,8 +70,8 @@ export function NewsletterForm({
   );
 
   const submit = (
-    <Button type="submit" size="lg" className="w-full sm:w-auto">
-      Subscribe
+    <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={pending}>
+      {pending ? "Subscribing…" : "Subscribe"}
     </Button>
   );
 
@@ -115,10 +136,11 @@ export function NewsletterForm({
             tone="dark"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            error={error ?? undefined}
             className="min-w-0 flex-1"
           />
-          <Button type="submit" variant="light" size="lg" className="shrink-0">
-            Join
+          <Button type="submit" variant="light" size="lg" className="shrink-0" disabled={pending}>
+            {pending ? "Joining…" : "Join"}
           </Button>
         </div>
       </form>
